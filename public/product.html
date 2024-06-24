@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-storage-compat.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="#" class="navbar-brand">logo</a>
+    </nav>
+    <main>
+        <h1>Welcome, <span id="username"></span></h1>
+    </main>
+    <main>
+        <form class="w-50 max-auto" action="">
+            <h1>Add a project</h1>
+            <div class="form-group">
+                <label for="">product name</label>
+                <input type="text">
+            </div>
+            <div class="form-group">
+                <label for="">product price</label>
+                <input type="number">
+            </div>
+            <div class="form-group">
+                <label for="">product image</label>
+                <input type="file">
+            </div>
+            <div class="form-group">
+                <label for="">product description</label>
+                <input type="text">
+            </div>
+            <button>Add Product</button>
+        </form>
+    </main>
+</body>
+</html>
+
+<script>
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyCEhcVK3Vb6SRhB4K6X4j1jM1Bs_f4-TZw",
+      authDomain: "login-page-94aa2.firebaseapp.com",
+      projectId: "login-page-94aa2",
+      storageBucket: "login-page-94aa2.appspot.com",
+      messagingSenderId: "398529747929",
+      appId: "1:398529747929:web:8859399db63f5a169697c8"
+    };
+  
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    
+  </script>
+
+<script>
+    function auth() {
+        firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/v8/firebase.User
+    var uid = user.uid;
+    console.log(user);
+    username.innerHTML = user.email
+    // ...
+  } else {
+    // User is signed out
+    console.log("There is no user");
+  }
+});
+    }
+    auth()
+</script>

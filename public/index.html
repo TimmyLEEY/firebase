@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.1/firebase-auth-compat.js"></script>
+    <title>Document</title>
+    <style>
+         *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    background: white;
+    /* height: 100vh; */
+    /* display: flex;
+    align-items: center; */
+}
+
+.container{
+   margin: auto;
+   width: 430px;
+   /* background: #f5efef; */
+   overflow-x: auto;
+   background: white;
+   
+}
+.nav-div img{
+    width: 150px;
+}
+.nav-div{
+    display: flex;
+    gap: 20px;
+    color: #c1b1b1;
+}
+nav{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+.right-nav{
+    display: flex;
+    gap: 5px;
+    font-size: 12px;
+    color: #b8b2b2;
+}
+.nav2{
+    background: #dc1431;
+    color: white;
+    padding: 10px;
+}
+#btn{
+    width: 70px;
+    background: #006cb5;
+    border: none;
+    color: white;
+    height: 25px;
+    border-radius: 5px;
+}
+#boa{
+    color: white;
+    text-decoration: none;
+}
+.sec1-1 img{
+    width: 200px
+}
+.sec1{
+    display: flex;
+    gap: 30px;
+    margin-top: 50px;
+    margin-left: 20px;
+}
+.downpart{
+    display: flex;
+    gap: 10px;
+}
+.downpart a{
+    text-decoration: none;
+    font-size: 12px;
+}
+.sec3{
+    font-size: 12px;
+    margin-left: 20px;
+}
+.sec3{
+    background: #f3efea;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 10px;
+}
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="container">
+            <nav>
+                <div class="nav-div">
+                    <img src="BofA_rgb.png" alt="">
+                    <p>Sign up</p>
+                </div>
+                <div class="right-nav">
+                    <i class="fa-solid fa-lock"></i>
+                    <p>Secure Area</p>
+                    <p>|</p>
+                    <p>En espanol</p>
+                </div>
+            </nav>
+            <nav class="nav2">
+                <p>sign in to Online Banking</p>
+            </nav>
+
+            <div class="sec1">
+                <div>
+                    <form action="">
+                        <label for="input1">Email Address</label><br>
+                        <input id="input1" type="text"><br><br>
+                        <label for="input2">User ID</label><br>
+                        <input id="input2" type="text"><br><br>
+                        
+                        <br>
+                        <label for="input3">Password</label><br>
+                        <input id="input3" type="password">
+                        <br><br>
+
+                       
+                        <button onclick="registerUser(event)">signup</button>
+                        <button onclick="goggle(event)">goggle</button>
+                        <button><a href="login.html">login</a></button>
+                    </form>
+                </div>
+                <div class="sec1-1">
+                    <img src="mobile_llama.png" alt="">
+                </div>
+            </div>
+
+            <div class="sec3">
+                <p>Secure area</p><br>
+                <div class="downpart">
+                    <a href="">Privacy</a>
+                    <a href="">|</a>
+                    <a href="">Security</a>
+                    <a href="">|</a>
+                    <a href="">Your Privacy Choices</a>
+                </div><br>
+                <p>Bank of America, N.A. Member FDIC. Equal Housing Lender</p>
+                <p>© 2024 Bank of America Corporation.</p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    
+    const firebaseConfig = {
+      apiKey: "AIzaSyCEhcVK3Vb6SRhB4K6X4j1jM1Bs_f4-TZw",
+      authDomain: "login-page-94aa2.firebaseapp.com",
+      projectId: "login-page-94aa2",
+      storageBucket: "login-page-94aa2.appspot.com",
+      messagingSenderId: "398529747929",
+      appId: "1:398529747929:web:8859399db63f5a169697c8"
+    };
+  
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    
+  </script>
+
+  <script>
+    let email = document.getElementById("input1")
+    let password = document.getElementById("input3")
+    let userId = document.getElementById("input2")
+
+   
+    function registerUser(ev) {
+        ev.preventDefault();
+        firebase.auth().createUserWithEmailAndPassword(email.value, password.value,userId.value)
+  .then((userCredential) => {
+    // Signed in 
+    var user = userCredential.user;
+    alert("Succesful")
+    window.location.href = "login.html"
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    alert(errorMessage)
+  });
+    }
+
+
+    function goggle(ev) {
+        ev.preventDefault();
+        firebase.auth()
+  .signInWithPopup(provider)
+  .then((result) => {
+    /** @type {firebase.auth.OAuthCredential} */
+    var credential = result.credential;
+
+    // This gives you a Google Access Token. You can use it to access the Google API.
+    var token = credential.accessToken;
+    // The signed-in user info.
+    var user = result.user;
+    // IdP data available in result.additionalUserInfo.profile.
+    alert("Succesful")
+    window.location.href = "login.html"
+  }).catch((error) => {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // The email of the user's account used.
+    var email = error.email;
+    // The firebase.auth.AuthCredential type that was used.
+    var credential = error.credential;
+    alert(errorMessage)
+  });
+    }
+
+   
+  </script>
